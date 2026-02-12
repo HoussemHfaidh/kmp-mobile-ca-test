@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -28,11 +27,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.kmpmobileca.domain.model.Operation
+import com.example.kmpmobileca.ui.screen.operations.model.OperationUi
 import com.example.kmpmobileca.ui.theme.CA_Gray_100
 import com.example.kmpmobileca.ui.theme.spacingLg
-import com.example.kmpmobileca.ui.utils.formatDate
-import com.example.kmpmobileca.ui.utils.formatEuro
 import io.ktor.websocket.Frame
 import org.koin.compose.koinInject
 
@@ -70,12 +67,12 @@ fun OperationsDetailScreen(
 
                 BackButton(onBack = onBack)
 
-                AccountHeader(balance = state.balance, label = state.accountLabel)
+                AccountHeader(balance = state.operations.balanceText, label = state.operations.accountLabel)
 
                 LazyColumn(
                     contentPadding = PaddingValues(horizontal = spacingLg),
                 ) {
-                    items(state.operations) { op ->
+                    items(state.operations.items) { op ->
                         OperationRow(op)
                     }
                 }
@@ -107,7 +104,7 @@ fun BackButton(
 
 
 @Composable
-fun OperationRow(operation: Operation) {
+fun OperationRow(operation: OperationUi) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -121,14 +118,14 @@ fun OperationRow(operation: Operation) {
             )
             Spacer(Modifier.height(6.dp))
             Text(
-                text = formatDate(operation.date),
+                text = operation.dateText,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
 
         Text(
-            text = formatEuro(operation.amount),
+            text = operation.amountText,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -140,7 +137,7 @@ fun OperationRow(operation: Operation) {
 
 @Composable
 private fun AccountHeader(
-    balance: Double,
+    balance: String,
     label: String
 ) {
     Column(
@@ -150,7 +147,7 @@ private fun AccountHeader(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = formatEuro(balance),
+            text = balance,
             style = MaterialTheme.typography.headlineLarge
         )
 
@@ -167,14 +164,14 @@ private fun AccountHeader(
 
 @Composable
 private fun Loading(modifier: Modifier = Modifier) {
-    Box(modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+    Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         CircularProgressIndicator()
     }
 }
 
 @Composable
 private fun Error(modifier: Modifier = Modifier, error: String) {
-    Box(modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+    Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Frame.Text("Erreur: $error")
     }
 }

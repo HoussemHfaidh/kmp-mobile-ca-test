@@ -1,11 +1,11 @@
-package com.example.kmpmobileca.ui.screen.accounts
+package com.example.kmpmobileca.ui.screen.accounts.state
 
-import com.example.kmpmobileca.domain.model.Bank
+import com.example.kmpmobileca.ui.screen.accounts.model.BankUi
 
 data class AccountsState (
     val isLoading: Boolean,
-    val caBanks: List<Bank>,
-    val otherBanks: List<Bank>,
+    val caBanks: List<BankUi>,
+    val otherBanks: List<BankUi>,
     val error: String?
 ){
     companion object {

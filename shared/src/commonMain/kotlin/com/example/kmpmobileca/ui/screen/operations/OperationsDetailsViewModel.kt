@@ -2,6 +2,8 @@ package com.example.kmpmobileca.ui.screen.operations
 
 import com.example.kmpmobileca.core.coroutines.AppDispatchers
 import com.example.kmpmobileca.domain.usecase.GetOperationsUseCase
+import com.example.kmpmobileca.ui.screen.operations.mapping.toOperationsUi
+import com.example.kmpmobileca.ui.screen.operations.state.OperationsDetailsState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,9 +26,7 @@ class OperationsDetailsViewModel(
                 .onSuccess { account ->
                     _state.value = _state.value.copy(
                         isLoading = false,
-                        operations = account.operations,
-                        accountLabel = account.label,
-                        balance = account.balance,
+                        operations = account.toOperationsUi()
                     )
                 }
                 .onFailure { t ->

@@ -35,8 +35,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.kmpmobileca.domain.model.Account
-import com.example.kmpmobileca.domain.model.Bank
+import com.example.kmpmobileca.ui.screen.accounts.model.AccountUi
+import com.example.kmpmobileca.ui.screen.accounts.model.BankUi
 import com.example.kmpmobileca.ui.theme.CA_Black
 import com.example.kmpmobileca.ui.theme.CA_Gray_100
 import com.example.kmpmobileca.ui.theme.CA_Gray_300
@@ -46,7 +46,6 @@ import com.example.kmpmobileca.ui.theme.spacingLg
 import com.example.kmpmobileca.ui.theme.spacingMd
 import com.example.kmpmobileca.ui.theme.spacingSm
 import com.example.kmpmobileca.ui.theme.spacingXl
-import com.example.kmpmobileca.ui.utils.formatEuro
 import org.koin.compose.koinInject
 
 @Composable
@@ -149,10 +148,9 @@ private fun ErrorContent(modifier: Modifier = Modifier, error: String) {
 
 
 @Composable
-private fun BankCard(bank: Bank, modifier: Modifier = Modifier, openOperationsDetail: (id: String) -> Unit) {
+private fun BankCard(bank: BankUi, modifier: Modifier = Modifier, openOperationsDetail: (id: String) -> Unit) {
     var expand by remember { mutableStateOf(false) }
     val rotation = remember { Animatable(if (expand) 270f else 90f) }
-    val total = bank.accounts.sumOf { it.balance }
 
     LaunchedEffect(expand) {
         rotation.animateTo(
@@ -175,7 +173,7 @@ private fun BankCard(bank: Bank, modifier: Modifier = Modifier, openOperationsDe
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.titleSmall
             )
-            Text(formatEuro(total), style = MaterialTheme.typography.bodyMedium, color = CA_Gray_300)
+            Text(bank.totalText, style = MaterialTheme.typography.bodyMedium, color = CA_Gray_300)
 
             Icon(
                 modifier = Modifier
@@ -201,7 +199,7 @@ private fun BankCard(bank: Bank, modifier: Modifier = Modifier, openOperationsDe
 
 @Composable
 private fun AccountRowCompact(
-    account: Account,
+    account: AccountUi,
     onClick: (accountId: String) -> Unit
 ) {
     Row(
@@ -223,7 +221,7 @@ private fun AccountRowCompact(
         )
 
         Text(
-            text = formatEuro(account.balance),
+            text = account.balanceText,
             style = MaterialTheme.typography.bodyMedium,
             color = CA_Gray_300
         )

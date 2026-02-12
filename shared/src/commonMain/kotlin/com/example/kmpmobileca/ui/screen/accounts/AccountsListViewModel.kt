@@ -2,6 +2,8 @@ package com.example.kmpmobileca.ui.screen.accounts
 
 import com.example.kmpmobileca.core.coroutines.AppDispatchers
 import com.example.kmpmobileca.domain.usecase.GetBanksUseCase
+import com.example.kmpmobileca.ui.screen.accounts.mapping.toUi
+import com.example.kmpmobileca.ui.screen.accounts.state.AccountsState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,8 +27,8 @@ class AccountsListViewModel(
                 .onSuccess { result ->
                     _state.value = _state.value.copy(
                         isLoading = false,
-                        caBanks = result.creditAgricoleBanks,
-                        otherBanks = result.otherBanks
+                        caBanks = result.creditAgricoleBanks.map { it.toUi() },
+                        otherBanks = result.otherBanks.map { it.toUi() }
                     )
                 }
                 .onFailure { t ->
