@@ -27,4 +27,13 @@ The project is built using:
 - **Koin (Dependency Injection)**
 - **Ktor (Networking)**
 
+  ## 📱 Screenshots
+
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-02-12 at 09 03 24" src="https://github.com/user-attachments/assets/f827ab4f-430a-4e24-936f-d51cdc7a89f2" />
+
+  <img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-02-12 at 09 03 31" src="https://github.com/user-attachments/assets/748e01e6-132c-4881-b002-39db1e72e508" />
+
+
+
+
 
