@@ -1,10 +1,30 @@
+# IntelliJ / Android Studio
 *.iml
-.gradle
-.idea
-.DS_Store
-build
-captures
-.externalNativeBuild
-.cxx
+.idea/
+.gradle/
+
+# Build folders
+build/
+**/build/
+
+# Local config
 local.properties
-xcuserdata
+
+# macOS
+.DS_Store
+
+# Android NDK / Native
+.externalNativeBuild/
+.cxx/
+
+# Kotlin / KMP / Native
+.konan/
+**/*.klib
+**/*.kexe
+
+# iOS / Xcode
+iosApp/build/
+iosApp/DerivedData/
+iosApp/*.xcworkspace/
+iosApp/Pods/
+**/xcuserdata/
