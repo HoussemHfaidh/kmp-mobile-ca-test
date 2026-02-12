@@ -27,5 +27,4 @@ The project is built using:
 - **Koin (Dependency Injection)**
 - **Ktor (Networking)**
 
-### Layered Structure
 
